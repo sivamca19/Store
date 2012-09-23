@@ -1,0 +1,8 @@
+<h4>New User</h4>
+<table >
+<%=form_for(:user, :url => admin_user_path, :method => :put) do |f|%>
+<%=f.hidden_field :id, :value => @user.id%>
+<%=render :partial => "form", :locals => {:f => f}%>
+  <tr><td><%=f.submit "Create User"%><td></tr>
+<%end%>
+</table>

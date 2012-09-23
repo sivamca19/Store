@@ -7,7 +7,11 @@ Store::Application.routes.draw do
    namespace :users, :as =>nil ,:path =>nil do
 	resources :roles	
   end
-root :to => "home#index"
+  root :to => "home#index"
+  namespace :admin do
+    resources :users
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

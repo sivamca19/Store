@@ -11,7 +11,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120815110033) do
+ActiveRecord::Schema.define(:version => 20120916121050) do
+
+  create_table "addresses", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "firstname"
+    t.string   "lastname"
+    t.string   "gender"
+    t.integer  "mobile"
+    t.integer  "landline"
+    t.string   "contry"
+    t.string   "state"
+    t.string   "city"
+    t.integer  "pin_code"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "addresses", ["user_id"], :name => "index_addresses_on_user_id"
 
   create_table "role_store_modules", :force => true do |t|
     t.integer  "role_id"

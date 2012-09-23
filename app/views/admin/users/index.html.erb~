@@ -1,0 +1,7 @@
+<table border="1px" width="100%" class="admin_users_table">
+<th>Name</th>
+<th>Email</th>
+<th>Role</th>
+<%@users.each do |user|%>
+<%end%>
+</table>

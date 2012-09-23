@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
-has_many :user_roles
+has_one :address
+ has_many :user_roles
  has_many :roles, :through => :user_roles
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
