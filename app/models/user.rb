@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
-has_one :address
- has_many :user_roles
- has_many :roles, :through => :user_roles
+ has_one :address, :dependent => :destroy
+ accepts_nested_attributes_for :address
+ belongs_to :role
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -9,5 +9,7 @@ has_one :address
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  #attr_accessor :address_attributes
+  delegate :name, :to => :role
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :role_id, :address_attributes
 end

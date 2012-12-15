@@ -1,0 +1,23 @@
+<h1>Listing store_modules</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @store_modules.each do |store_module| %>
+  <tr>
+    <td><%= store_module.name %></td>
+    <td><%= link_to 'Show', store_module %></td>
+    <td><%= link_to 'Edit', edit_store_module_path(store_module) %></td>
+    <td><%= link_to 'Destroy', store_module, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Store module', new_store_module_path %>

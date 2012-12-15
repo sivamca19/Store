@@ -1,6 +1,16 @@
-  <%=f.fields_for :address do |address|%>
-   <tr><td> Name <%=address.text_field :name%><td></tr>
-  <%end%>  
+  <%=f.fields_for :address_attributes do |address|%>
+   <tr><td> FirstName <%=address.text_field :firstname%><td></tr>
+   <tr><td> LastName <%=address.text_field :lastname%><td></tr>
+   <tr><td> Gender <%=address.text_field :gender%><td></tr>
+   <tr><td> Mobile Number <%=address.text_field :mobile%><td></tr>
+   <tr><td> Landline Number <%=address.text_field :landline%><td></tr>
+   <tr><td> Country <%=address.text_field :contry%><td></tr>
+   <tr><td> State <%=address.text_field :state%><td></tr>
+   
+   <tr><td> City <%=address.text_field :city%><td></tr>
+   <tr><td> Pin Code <%=address.text_field :pin_code%><td></tr>
+  <%end%>
   <tr><td>Email <%=f.text_field :email%><td></tr>
   <tr><td>Password <%=f.password_field :password%><td></tr>
   <tr><td>Confirm Password <%=f.password_field :password_confirmation%><td></tr>
+  <tr><td>Role <%=f.select :role_id, options_for_select(@role.collect {|a| [a.name, a.id]})%><td></tr> 

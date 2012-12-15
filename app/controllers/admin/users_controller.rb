@@ -1,18 +1,17 @@
 class Admin::UsersController < ApplicationController
-  before_filter :find_user, :except => [:new, :create, :index]
+  before_filter :find_user, :only => [:edit, :update, :show, :destroy]
   def index
     @users = User.all
   end
   
   def new
     @user = User.new
-    @address = Address.new
+    #@address = Address.new
+	@role = Role.all
   end
   
   def create
-    user_param = params[:user].reject {|key| key == "address"}
-    @user = User.new(user_param)
-    p @user.errors
+    @user = User.new(params[:user])
     if @user.save
       flash[:notice] = "User is successfully created"
       redirect_to admin_users_path
@@ -23,12 +22,11 @@ class Admin::UsersController < ApplicationController
   end
   
   def edit
-    
+	@address = @user.address.inspect
+	@role = Role.all
   end
   
-  def update
-    user_param = params[:user].reject {|key| key == "address"}
-    
+  def update   
     if @user.update_attributes(user_param)
       flash[:notice] = "User is successfully Updated"
       redirect_to admin_users_path
@@ -38,7 +36,7 @@ class Admin::UsersController < ApplicationController
   end
   
   def show
-    
+    p @address = @user.address
   end
   
   def destroy

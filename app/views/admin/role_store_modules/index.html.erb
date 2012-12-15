@@ -1,0 +1,12 @@
+<table border="1px" width="100%" class="admin_users_table">
+<th>Store</th>
+<th>Action</th>
+<%@role_store.each do |role_store|%>
+<tr>
+<td><%=role_store.name%></td>
+<td>
+  <%=link_to "Edit", store_role_admin_role_store_modules_path(:id=>role_store.id)%>
+</td>
+</tr>
+<%end%>
+</table>

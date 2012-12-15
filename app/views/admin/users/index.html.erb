@@ -1,13 +1,11 @@
 <table border="1px" width="100%" class="admin_users_table">
-<th>Name</th>
 <th>Email</th>
 <th>Role</th>
 <th>Actions</th>
 <%@users.each do |user|%>
 <tr>
-<td></td>
 <td><%=user.email%></td>
-<td></td>
+<td><%=user.name%></td>
 <td>
   <%=link_to "Edit", edit_admin_user_path(user)%>
   <%=link_to "Show", admin_user_path(user)%>

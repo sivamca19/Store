@@ -1,6 +1,8 @@
 Store::Application.routes.draw do
  
 
+  resources :store_modules
+
   devise_for :users, :controllers => { :registrations => "users/registrations", :sessions => "users/sessions", :passwords => "users/passwords" }, :path_names => { :sign_in => "login", :sign_out => "logout", :sign_up => "register" }
  
 
@@ -10,6 +12,9 @@ Store::Application.routes.draw do
   root :to => "home#index"
   namespace :admin do
     resources :users
+    resources :role_store_modules, :only => [:index, :update] do
+	  get "store_role", :on => :collection
+	end
   end
 
   # The priority is based upon order of creation:

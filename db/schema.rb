@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120916121050) do
+ActiveRecord::Schema.define(:version => 20121215135745) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "user_id"
@@ -33,9 +33,9 @@ ActiveRecord::Schema.define(:version => 20120916121050) do
   create_table "role_store_modules", :force => true do |t|
     t.integer  "role_id"
     t.integer  "store_module_id"
-    t.boolean  "create",          :default => false
-    t.boolean  "update",          :default => false
-    t.boolean  "delete",          :default => false
+    t.boolean  "create_status",   :default => false
+    t.boolean  "update_status",   :default => false
+    t.boolean  "delete_status",   :default => false
     t.datetime "created_at",                         :null => false
     t.datetime "updated_at",                         :null => false
   end
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(:version => 20120916121050) do
     t.string   "authentication_token"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
+    t.integer  "role_id"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
