@@ -1,0 +1,7 @@
+    <div class="clear"></div>
+	<div class="new_form">
+	<div class="line_item line_item_product_id"><%=f.select :product_id, options_for_select(@product_options), {:prompt => 'Select Person'}, { :class => "order_product_id" }%></div>
+    <div class="line_item line_item_quantity"><%=f.select :quantity, options_for_select(1..10), {}, { :class => "order_quantity" }%></div>
+	<div class="line_item line_item_product_price"><%=text_field_tag :product_price, '',  :readonly => true, :class => "product_price"%></div>
+    <div class="line_item line_item_order_price"><%=f.text_field :price, :readonly => true, :class => "order_price"%></div>
+    </div>

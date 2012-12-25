@@ -1,10 +1,14 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <b>Name:</b>
   <%= @role.name %>
 </p>
 
+<p><b>Module  Access Permission</b></p>
+<% @role.store_modules.map(&:name).each do |m| %>
+  <p>
+    <%= m%>
+  </p>
+<%end%>
 
 <%= link_to 'Edit', edit_role_path(@role) %> |
 <%= link_to 'Back', roles_path %>

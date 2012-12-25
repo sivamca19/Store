@@ -1,6 +1,10 @@
 Store::Application.routes.draw do
  
 
+  resources :orders
+
+  resources :products
+
   resources :store_modules
 
   devise_for :users, :controllers => { :registrations => "users/registrations", :sessions => "users/sessions", :passwords => "users/passwords" }, :path_names => { :sign_in => "login", :sign_out => "logout", :sign_up => "register" }
@@ -15,7 +19,8 @@ Store::Application.routes.draw do
     resources :role_store_modules, :only => [:index, :update] do
 	  get "store_role", :on => :collection
 	end
-  end
+end
+ #~ match "products/quantity_options/:id" => "products#quantity_options"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

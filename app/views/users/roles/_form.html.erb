@@ -15,6 +15,10 @@
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </div>
+	
+	<%@store_modules.each do |sm|%>
+		 <%=check_box_tag "module_permission[module_permission_id][]", sm.id,@role.store_modules.map(&:name).include?(sm.name)%><%=sm.name%>
+	<%end%>
   <div class="actions">
     <%= f.submit %>
   </div>

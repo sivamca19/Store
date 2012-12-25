@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121215135745) do
+ActiveRecord::Schema.define(:version => 20121225103835) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "user_id"
@@ -29,6 +29,61 @@ ActiveRecord::Schema.define(:version => 20121215135745) do
   end
 
   add_index "addresses", ["user_id"], :name => "index_addresses_on_user_id"
+
+  create_table "billing_addresses", :force => true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.text     "address"
+    t.string   "phone_number"
+    t.integer  "order_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  create_table "categories", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "line_items", :force => true do |t|
+    t.integer  "order_id"
+    t.integer  "product_id"
+    t.integer  "quantity"
+    t.decimal  "price",      :precision => 10, :scale => 0
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+  end
+
+  create_table "orders", :force => true do |t|
+    t.integer  "user_id"
+    t.decimal  "total_price",    :precision => 10, :scale => 0
+    t.string   "payment_state"
+    t.string   "shipment_state"
+    t.datetime "created_at",                                    :null => false
+    t.datetime "updated_at",                                    :null => false
+  end
+
+  create_table "products", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "category_id"
+    t.decimal  "quantity_value", :precision => 10, :scale => 0
+    t.decimal  "no_of_bags",     :precision => 10, :scale => 0
+    t.decimal  "bag_size",       :precision => 10, :scale => 0
+    t.decimal  "total_price",    :precision => 10, :scale => 0
+    t.decimal  "price",          :precision => 10, :scale => 0
+    t.integer  "quantity_id"
+    t.datetime "created_at",                                    :null => false
+    t.datetime "updated_at",                                    :null => false
+  end
+
+  create_table "quantities", :force => true do |t|
+    t.string   "quantity_type"
+    t.string   "symbol"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
 
   create_table "role_store_modules", :force => true do |t|
     t.integer  "role_id"

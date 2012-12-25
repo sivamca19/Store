@@ -38,18 +38,21 @@ class Users::RolesController < ApplicationController
   # GET /roles/1/edit
   def edit
     @role = Role.find(params[:id])
+    @store_modules = StoreModule.all
   end
 
   # POST /roles
   # POST /roles.json
   def create
-    @role = Role.new(params[:role])
-
+    @role = Role.new(params[:role])    
     respond_to do |format|
-      if @role.save
+      if @role.valid? && params[:module_permission] && params[:module_permission][:module_permission_id]
+        @role.save && StoreModule.create_role_store_module(params[:module_permission][:module_permission_id],@role.id)
         format.html { redirect_to @role, notice: 'Role was successfully created.' }
         format.json { render json: @role, status: :created, location: @role }
       else
+        @store_modules = StoreModule.all
+        flash[:alert]= @role.valid? ? "Select atleast one module to access" : ""
         format.html { render action: "new" }
         format.json { render json: @role.errors, status: :unprocessable_entity }
       end
@@ -60,12 +63,16 @@ class Users::RolesController < ApplicationController
   # PUT /roles/1.json
   def update
     @role = Role.find(params[:id])
-
+    RoleStoreModule.delete_all(:role_id=>params[:id])
+    
     respond_to do |format|
-      if @role.update_attributes(params[:role])
+      if (@role.valid? && params[:module_permission] && params[:module_permission][:module_permission_id])
+        @role.update_attributes(params[:role]) && StoreModule.create_role_store_module(params[:module_permission][:module_permission_id],@role.id)
         format.html { redirect_to @role, notice: 'Role was successfully updated.' }
         format.json { head :no_content }
       else
+        @store_modules = StoreModule.all
+        flash[:alert]= @role.valid? ? "Select atleast one module to access" : ""
         format.html { render action: "edit" }
         format.json { render json: @role.errors, status: :unprocessable_entity }
       end

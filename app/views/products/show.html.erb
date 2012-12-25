@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+
+<%= link_to 'Edit', edit_product_path(@product) %> |
+<%= link_to 'Back', products_path %>
+<br />
+<br />
+<table width="50%" border="0px">
+  <tr>
+    <td> Name </td> <td><%=@product.name%></td>
+  </tr>
+    <tr>
+    <td> Price </td> <td><%=@product.price%></td>
+  </tr>
+  <tr>
+    <td> Description </td> <td><%=@product.description%></td>
+  </tr>
+  <tr>
+    <td> Category </td> <td><%=@product.category.name%></td>
+  </tr>
+  <tr>
+    <td> Quantity </td> <td><%=@product.quantity_value%><%=@product.quantity.symbol if @product.quantity%></td>
+  </tr>
+    <tr>
+    <td> Total Price </td> <td><%=@product.total_price%></td>
+  </tr>
+  <tr>
+    <td> No of bags </td> <td><%=@product.no_of_bags%></td>
+  </tr>
+  <tr>
+    <td> Bag size </td> <td><%=@product.bag_size%></td>
+  </tr>
+</table>

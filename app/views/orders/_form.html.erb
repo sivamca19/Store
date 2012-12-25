@@ -1,0 +1,118 @@
+<%= form_for(@order) do |f| %>
+  <% if @order.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+      <ul>
+      <% @order.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <br />
+  <%= link_to_add_fields("Add line items", f , :line_items) %>
+  <div width="100%">
+  <div class="line_item">Product
+  </div>
+    <div class="line_item">Quantity
+  </div>
+    <div class="line_item">Price
+  </div>
+    <div class="line_item">Total Price
+  </div>
+  </div>
+  <div id="line_items_div" width="100%" ></div>
+    <%=f.fields_for :line_items do |line_item|%>
+       <%= render "line_item_fields", :f => line_item %>
+     <%end%>
+	 <div class="clear"></div>
+  <div class="field">
+    <%= f.label :total_price %><br />
+    <%= f.text_field :total_price, :readonly => true %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+
+<script>
+$(document).ready(function()
+{
+ $(".order_product_id").live('change', function()
+  {
+  product_obj = $(this)
+  id = product_obj.val();
+  
+  $.ajax({
+  type: "GET",
+  dataType: "json",
+  url: "/products/"+id
+}).done(function( msg ) {
+// done start
+// reference http://stackoverflow.com/questions/1801499/how-to-change-options-of-select-with-jquery
+newOptions = {};
+
+val = msg.quantity_value;
+for (i=1; i<=val; i++)
+{
+  newOptions[i] = i
+  }
+  
+  var $el = product_obj.parent().siblings('.line_item_quantity').children()
+  $el.empty(); // remove old options
+  $.each(newOptions, function(key, value) {
+	$el.append($("<option></option>").attr("value", value).text(key));
+  });
+  
+  //  update quantity
+  product_obj.parent().siblings('.line_item_product_price').children().val(msg.price);
+  
+  // update price total
+    price = msg.price;
+	quantity = product_obj.parent().siblings('.line_item_quantity').children().val();
+  update_price_total(price, quantity, product_obj);
+  update_total_price();
+  
+  // done end
+});
+
+});
+
+// quantity change
+$(".order_quantity").live('change', function()
+{
+quantity = $(this).val();
+price = $(this).parent().siblings('.line_item_product_price').children().val();
+update_price_total(price, quantity, $(this));
+update_total_price();
+});
+
+
+
+// update function 
+function update_price_total(price, quantity, obj)
+{
+total = price*quantity;
+  obj.parent().siblings('.line_item_order_price').children().val(total);
+}
+
+// update total price
+function update_total_price()
+{
+total = 100
+$("#order_total_price").val(total);
+
+}
+});
+
+function add_fields(link, association, content) {
+var new_id = new Date().getTime();
+var regexp = new RegExp("new_" + association, "g");
+//~ $(link).up().insert({
+//~ before: content.replace(regexp, new_id)
+//~ });
+$("#line_items_div").append(content.replace(regexp, new_id));
+} 
+</script>
